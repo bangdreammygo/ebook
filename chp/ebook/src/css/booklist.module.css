@@ -1,0 +1,14 @@
+.wrapper{
+    width: 1400px;
+    margin: 0 auto;
+}
+.goods .wrapper{
+    margin-top: 70px;
+}
+.goods .wrapper ul{
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+    align-content: space-around;
+    height: 700px;
+}
