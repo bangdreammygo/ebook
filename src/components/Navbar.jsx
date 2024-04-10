@@ -20,9 +20,11 @@ const Navbar=({children,active})=>{
         key:"rank",
         label:<Link to={"/rank"}>排行</Link>
     },
+    {
+      key:"user",
+      label:<Link to={"/user"}>我的</Link>
+    }
    ];
-   //未登录
-   if(children===null){
     return(
       <Row  justify="start">
         {/* logo */}
@@ -56,7 +58,6 @@ const Navbar=({children,active})=>{
         </Col>
       </Row>
     );
-   }
 }
 
 

@@ -2,22 +2,26 @@
 import "../css/base.module.css"
 import style from "../css/userlayout.module.css"
 import { Layout, Space } from "antd";
-import { Content, Footer } from "antd/es/layout/layout";
+import { Content, Footer , } from "antd/es/layout/layout";
 import Header from "./header";
 //第一个导出的组件：登录后的组件
+
+
+//children是里面放的内容，active是目前选中的是哪一栏 
 const UserLayout=({children,active})=>{
     return(
        <Layout className={style.userlayout}>
-        <Header active={active}>{null}</Header>
+        <Header active={active} >{null}</Header>
+        <br /><br /><br />
         <Content >{children}</Content>
         <Footer
          style={{
             textAlign:"center",
             fontSize:"14px",
-            backgroundColor:"rgba(255,255,255,0.5)"
+            backgroundColor:"rgba(17,26,44,0.9)"
          }}
         >
-            <div>made by djf</div>
+            <div style={{color:"white"}}>made by djf</div>
         </Footer>
        </Layout>
     );
@@ -28,15 +32,16 @@ const LoginLayout=({children})=>{
     return(
     <Layout className="basic-layout">
         <Header className="heaader">{null}</Header>
+        <br /><br /><br />
         <Content>{children}</Content>
         <Footer
          style={{
             textAlign:"center",
             fontSize:"14px",
-            backgroundColor:"rgba(255,255,255,0.5)"
+            backgroundColor:"#111a2c"
          }}
         >
-            <div>made by djf</div>
+            <div style={{color:"white"}}>made by djf</div>
         </Footer>
     </Layout>
     );

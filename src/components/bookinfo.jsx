@@ -9,12 +9,11 @@ import upload7 from "../uploads/uploads7.JPG";
 import upload8 from "../uploads/uploads8.JPG";
 
 
-
 import { useState ,useEffect } from "react";
-import { Card, Divider, Pagination, Space, Tabs } from "antd";
+import { Card, Divider, Space } from "antd";
 import { Button, Col, Image, Row } from "antd";
 import {  Typography } from 'antd';
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { ExclamationCircleOutlined,ReadOutlined,ShoppingCartOutlined ,BulbOutlined,GiftOutlined,QuestionCircleOutlined,MoneyCollectOutlined,InfoCircleOutlined} from '@ant-design/icons';
 const { Title, Paragraph } = Typography;
 
 
@@ -40,58 +39,66 @@ const BookInfo=({children})=>{
 
    //取到数据了过后填充
    return(
-     <Card style={{backgroundColor:"transparent", padding:"0px 10px"}}> 
+     <Card style={{backgroundColor:"transparent", padding:"0px 10px",border:"none"}}> 
         <br /><br />
        <Row>
          <Col span={9}>
            <Image src={pics[children-1]} width={500} height={500}  />
          </Col>
-        <Col span={14}>
+        <Col span={14} style={{
+            backgroundColor:"rgba(41,36,33,0.7)",
+            padding:"20px",
+            borderRadius:"10px"
+        }}>
          {/* 布局右边说明板块 */}
          <Typography>
-           <Title style={{color:"white"}}>{information.name}</Title>
-           <Divider orientation="left" style={{color:"white"}}></Divider>
-           <Paragraph style={{color:"white", fontSize:"20px"}}>关于本书</Paragraph>
            <Space>
+           <ReadOutlined style={{color:"#ffb6c1",fontSize:"34px",marginBottom:"10px"}}></ReadOutlined>
+           <Title style={{color:"white",fontSize:"32px"}}>{information.name}</Title>
+           </Space>
+           <Paragraph style={{color:"white", fontSize:"20px"}}><QuestionCircleOutlined  style={{color:"#6495ed",fontSize:"22px"}}>
+            </QuestionCircleOutlined>  关于本书:</Paragraph>
+           {/* 作者介绍区域 */}
+           <Space>
+                    <BulbOutlined style={{fontSize:"24px",color:"#ffff99",marginBottom:"10px"}} />
                     <Paragraph style={{color:"white"}}>
                         {`作者：${information.auther}`}
                         <Divider type="vertical" />
                         {`销量：114514`}
                     </Paragraph>
             </Space>
-            <Divider orientation="left" style={{color:"white"}}></Divider>
-            <Paragraph style={{color:"white", fontSize:"20px"}}>作品简介</Paragraph>
+            
+            {/* 作品简介区域 */}
+            <Paragraph style={{color:"white", fontSize:"20px"}}><InfoCircleOutlined style={{color:"#ffb3e6"}}></InfoCircleOutlined> 作品简介</Paragraph>
             <Paragraph style={{color:"white"}}>{information.brief}</Paragraph>
-
+            
+            
+            {/* 出售区域 */}
             <Space direction="vertical" size="large" style={{ width: "100%"}}>
-                    <div style={{ backgroundColor: "rgba(41,36,33,0.4)", padding: "20px", width: "100%",borderRadius:"8px" }}>
-                        <Paragraph style={{ marginBottom: 0,color:"white" }} type="secondary">抢购价</Paragraph>
+                    <div style={{ backgroundColor: "transparent", padding: "20px", width: "100%",borderRadius:"8px" }}>
+                        <Paragraph style={{ marginBottom: 0,color:"white", fontSize:"18px" }} type="secondary"><MoneyCollectOutlined
+                        style={{
+                            color:"#caebda",
+                            fontSize:"28px",
+                            marginTop:"10px"
+                        }}></MoneyCollectOutlined> 限时售价</Paragraph>
+                        {/* 价格 */}
                         <div><Space>
-                            <div style={{ color: "#FF3300", fontSize: "16px" }}>¥</div>
-                            <div style={{ color: "#ff3300", fontSize: "30px" }}>{information.price / 100}</div>
-                            <div style={{ color: "#ff3300", fontSize: "18px" }}>（7折）</div>
+                            <div style={{ color: "#e6005c", fontSize: "16px" }}>¥</div>
+                            <div style={{ color: "#e6005c", fontSize: "30px" }}>{information.price}</div>
+                            <div style={{ color: "#e6005c", fontSize: "18px" }}>（7折）</div>
                         </Space>
                         </div>
-                        <div>
-                            <Space>
-                                <div style={{
-                                    backgroundColor: "#f48484",
-                                    padding: "0px 4px 0px 4px",
-                                    borderRadius: "5px",
-                                    color: "white"
-                                }}>店铺促销</div>
-                                <Paragraph style={{ marginBottom: 0 ,color:"white"}} type="secondary">满¥18减¥1，满¥48减¥3，满¥98减¥5，满¥198减¥10</Paragraph>
-                            </Space>
-                        </div>
+                        {/* 抢购标语 */}
                         <Space>
                             <ExclamationCircleOutlined style={{color:"white"}} />
-                            <Paragraph style={{ marginBottom: 0 ,color:"white"}} type="secondary">部分促销不可共享，请以购物车能享受的促销为准</Paragraph>
+                            <Paragraph style={{ marginBottom: 0 ,color:"white"}} type="secondary">数量有限，先到先得</Paragraph>
                         </Space>
                     </div>
                     {/* 后续用来写事件的两个按钮 */}
                     <Space>
-                        <Button size="large">加入购物车</Button>
-                        <Button type="primary" size="large">立即购买</Button>
+                        <Button size="large">加入购物车<ShoppingCartOutlined></ShoppingCartOutlined></Button>
+                        <Button type="primary" size="large">立即购买<GiftOutlined style={{color:"white"}}></GiftOutlined></Button>
                     </Space>
                 </Space>
 

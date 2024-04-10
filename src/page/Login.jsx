@@ -16,6 +16,9 @@ import Input from 'antd/lib/input';
 import logo from "../img/Ebook1.png";
 import movie from "../movie/loginmovie2.mp4"
 const Login=()=>{
+  const getvalue=({username,password})=>{
+    console.log(username,password);
+  }
   return(
      <LoginLayout>
           <LoginFormPage
@@ -40,14 +43,29 @@ const Login=()=>{
               title: '线上书城',
               subTitle:"限时优惠"
             }}
+            onFinish={(value)=>{getvalue(value)}}
           >
                 {/* 用户名 */}
-                <Form.Item name="username">
+                <Form.Item name="username"
+                  rules={[
+                    {
+                      required:true,
+                      message:"请输入用户名"
+                    },
+                  ]}
+                >
                      <Input autoComplete='off' size='large' placeholder='请输入您的用户名' prefix={<UserOutlined />} >
                     </Input>
                 </Form.Item>
                 {/* 密码 */}
-               <Form.Item  name={"password"}>
+               <Form.Item  name={"password"}
+                rules={[
+                  {
+                    required:true,
+                    message:"请输入密码"
+                  },
+                ]}
+               >
                <Input.Password
                 placeholder="请输入密码"
                 iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}

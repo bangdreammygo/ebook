@@ -3,7 +3,6 @@ import style from "../css/bookcard.module.css"
 import { useState,useEffect } from "react";
 import {useNavigate} from "react-router-dom"
 
-
 //临时凑一下数的东西，后端请求数据
 import upload1 from "../uploads/uploads1.JPG";
 import upload2 from "../uploads/uploads2.JPG";
@@ -27,17 +26,17 @@ const Bookcard=({children})=>{
     //     getbook(children);
     // });
     const nav=useNavigate();
-    const jumpToDatail=(event)=>{
+    const jumpToDetail=(event)=>{
         nav(`/book?idx=${children}`);
     }
     return(
-        <li className={style.bookcard} onClick={jumpToDatail}>
+        <div className={style.bookcard} onClick={jumpToDetail}>
             <div className={style.pic}><img src={pics[children-1]} alt=""  className={style.image} /></div>
             <div className={style.txt}>
                 <div className={style.info}>{`第${children}项的书名`}</div>
                 <p className={style.price}>{`第${children}项的价格`}</p>
             </div>
-       </li>
+       </div>
     );
 };
 

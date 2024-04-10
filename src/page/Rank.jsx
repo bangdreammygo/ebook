@@ -1,10 +1,13 @@
-
+import { UserLayout } from "../components/layout";
 
 
 const Rank=()=>{
-    return(
-        <div>还没做好的排行页面</div>
-    );
+    
+   return(
+    <UserLayout active={"rank"}>
+        
+    </UserLayout>
+   );
 };
 
 

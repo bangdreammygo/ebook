@@ -7,7 +7,10 @@ import Navbar from "./Navbar";
 const MYHeader=({children,active})=>{
    return(
     <Header style={{
-      // backgroundColor:"rgba(255,255,255,0.5)"
+        position:'fixed',
+        top: 0,
+        zIndex: 2,
+        width: '100%',
       }}>
       <Navbar active={active}>{children}</Navbar>
     </Header>

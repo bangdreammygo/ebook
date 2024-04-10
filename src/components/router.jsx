@@ -6,7 +6,7 @@ import Order  from "../page/Order";
 import Rank from "../page/Rank";
 import Login from "../page/Login";
 import Detail from "../page/Detail";
-
+import Userpage from "../page/User";
 const router=createBrowserRouter(
     [
         {
@@ -32,6 +32,10 @@ const router=createBrowserRouter(
         {
             path:"/book",
             element:<Detail></Detail>
+        },
+        {
+            path:"/user",
+            element:<Userpage></Userpage>
         },
         {
             path:"*",

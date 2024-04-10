@@ -2,14 +2,15 @@ import { Link } from "react-router-dom";
 import { Button, Col, Image, Row, Table, InputNumber } from "antd";
 import { useEffect, useState } from "react";
 import { render } from "@testing-library/react";
+import {DeleteOutlined} from "@ant-design/icons"
 import src from "../uploads/uploads1.JPG"
 const CartItemTable=({children})=>{
     //处理购物车内增加数量的情况
     const handleCartchange=(id,num)=>{
     
     }
-    const  handleDeleteItem=(id)=>{
-       console.log(children[0].price);
+    const  handleDeleteItem=(item)=>{
+       alert(`删除书籍：${item.name}`);
     }
     const data=children.map(item=>{
        return item
@@ -43,17 +44,13 @@ const CartItemTable=({children})=>{
         {
             title: '操作',
             dataIndex: '',
-            render: (item) => <Button type="primary" onClick={() => {
-                handleDeleteItem(item.id);
-            }}>删除</Button>,
+            render: (text,item,idx) => <Button type="primary" onClick={() => {
+                handleDeleteItem(item);
+            }}><DeleteOutlined></DeleteOutlined> 删除</Button>,
         }
      ];
-     console.log(data.map(item => ({
-        img:src,
-        ...item,
-        key: item.id
-    })));
      return (
+        <>
         <Table
         columns={columns}
         rowSelection={{}}
@@ -75,6 +72,19 @@ const CartItemTable=({children})=>{
             key: item.id
         }))}
         />
+        <p style={{
+            display:"block",
+            width:"200px",
+            height:"40px",
+            lineHeight:"40px",
+            textAlign:"center",
+            fontSize:"16px",
+            fontWeight:"700"
+            }}>总价：{1}元</p>
+            <br />
+        <Button type="primary" 
+        >立刻下单</Button>
+        </>
      );
 
 }
