@@ -7,13 +7,12 @@ import upload5 from "../uploads/uploads5.JPG";
 import upload6 from "../uploads/uploads6.JPG";
 import upload7 from "../uploads/uploads7.JPG";
 import upload8 from "../uploads/uploads8.JPG";
-
-
 import { useState ,useEffect } from "react";
 import { Card, Divider, Space } from "antd";
 import { Button, Col, Image, Row } from "antd";
 import {  Typography } from 'antd';
 import { ExclamationCircleOutlined,ReadOutlined,ShoppingCartOutlined ,BulbOutlined,GiftOutlined,QuestionCircleOutlined,MoneyCollectOutlined,InfoCircleOutlined} from '@ant-design/icons';
+import { getBook } from "../service/book";
 const { Title, Paragraph } = Typography;
 
 
@@ -24,28 +23,26 @@ const BookInfo=({children})=>{
         auther:"111",
         price:0,
         brief:"test"});
-    async function getBook(idx){
-        const res=await fetch("http://localhost:8888/data");
-        const data=await res.json();
-        const idxn=Number(idx);
-        const bkif=data[idxn-1];
-        console.log(bkif);
-        setInfo(bkif);
-    };
+    const getDetail=async (indx)=>{
+        const data=await getBook(indx);
+        setInfo(data);
+    }
     useEffect(  ()=>{
-       getBook(children);
-    },[]);
+        getDetail(children)  ;
+    },[children]);
  
 
    //取到数据了过后填充
    return(
+    //页面整体放入一个大的card内
      <Card style={{backgroundColor:"transparent", padding:"0px 10px",border:"none"}}> 
         <br /><br />
+       {/*布局展示图和右侧详情*/}
        <Row>
          <Col span={9}>
            <Image src={pics[children-1]} width={500} height={500}  />
          </Col>
-        <Col span={14} style={{
+        <Col span={15} style={{
             backgroundColor:"rgba(41,36,33,0.7)",
             padding:"20px",
             borderRadius:"10px"
