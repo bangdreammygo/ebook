@@ -1,6 +1,5 @@
 import { UserLayout } from "../components/layout";
-import { Card, Divider, Space } from "antd";
-import { Button, Col, Image, Row } from "antd";
+import { Card } from "antd";
 import UserInfo from "../components/userinfo";
 const Userpage=()=>{
 

@@ -1,8 +1,8 @@
-//booklist组件，用于防止书籍
+//booklist组件，用于放置书籍
 import "../css/base.module.css"
 import Bookcard from "./bookcard";
 import  style from  "../css/booklist.module.css"
-import { List, Pagination, Space } from "antd"
+import { List, Pagination} from "antd"
 //简单搞一个数组（无后端所以先写死只能）
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
