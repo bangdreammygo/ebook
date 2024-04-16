@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.3.6",
+    "@ant-design/plots": "^2.1.15",
     "@ant-design/pro-components": "^2.7.0",
     "@reduxjs/toolkit": "^2.2.2",
     "@testing-library/jest-dom": "^5.17.0",
@@ -23,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "server":"json-server ./src/server/data.json --port 8888"
+    "server": "json-server ./src/server/data.json --port 8888"
   },
   "eslintConfig": {
     "extends": [
