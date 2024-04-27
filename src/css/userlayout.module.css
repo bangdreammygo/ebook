@@ -6,5 +6,10 @@
     overflow: hidden;
     min-height: 110vh !important;
     position: relative;
-    
+}
+
+.loginlayout{
+    overflow: hidden;
+    min-height: 100vh !important;
+    position: relative;
 }

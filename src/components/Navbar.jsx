@@ -35,7 +35,7 @@ const Navbar=({children,active})=>{
            color:"gray"
          }}
         >
-         <Link to={"/login"}  className={styles.logo}>E-Book</Link>
+         <Link to={"/"}  className={styles.logo}>E-Book</Link>
         </Col>
         {/* nav */}
         <Col

@@ -1,18 +1,24 @@
 import { Card, Divider, Space ,Button  } from "antd";
 import {  Col, Row ,Input } from "antd";
 import {GoldOutlined,UserOutlined} from "@ant-design/icons"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import style from "../css/userinfo.module.css"
+import style from "../css/userinfo.module.css";
+import getUser from "../service/user";
+import { logout } from "../service/logintest";
+import { useNavigate } from "react-router-dom";
 const UserInfo=()=>{
 
-    // 请求到的用户名：
-    const username="五条悟";
-    //请求到的密码:
-   const password="无量空处5t5";
-   //请求到的余额:
+    
+    //获取导航函数
+    const navigate=useNavigate();
+    // 初始化用户名：
+    const [Username,setUser]=useState("五条悟");
+    //初始化密码:
+   const [Password,setPassword]=useState("无量空处5t5");
+   //初始化余额:
    const remainMoney=2525252.5;
-   //请求到的用户签名：
+   //初始化用户签名：
    const usermotto="你所热爱的，就是你的生活";
    //判断目前是否应当修改签名
    const [changeMotto,setMotto]=useState(true);
@@ -27,10 +33,23 @@ const UserInfo=()=>{
    }
 
    //处理点击退出登录后退出登录的逻辑
-   const handleLogOut=()=>{
+   const handleLogOut=async ()=>{
       alert("当前用户退出登录");
+      await logout();
+      navigate("/login");
    }
-
+   //向后端请求数据后重新渲染用户名和密码
+   const renderUser=async ()=>{
+      const data=await getUser();
+      const {username,password}=data;
+      setUser(username);
+      setPassword(password);
+   }
+   useEffect(
+    ()=>{
+      renderUser();
+    }
+    ,[]);
 
 
 
@@ -59,11 +78,11 @@ const UserInfo=()=>{
                        }}>
                 <Row style={{padding:"0px 100px"}}>
                 <Col span={12}>用户名：</Col>
-                <Col span={12}>{username}</Col>
+                <Col span={12}>{Username}</Col>
                 </Row>
                 <Row style={{padding:"0px 100px"}}>
                 <Col span={12}>当前密码：</Col>
-                <Col span={12}>{password}</Col>
+                <Col span={12}>{Password}</Col>
                 </Row>
                 <Link  className={style.changepassword} to={"/"}>修改密码</Link>
                 </Space>

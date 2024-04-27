@@ -14,11 +14,31 @@ import {
 import Form from 'antd/lib/form';
 import Input from 'antd/lib/input';
 import logo from "../img/Ebook1.png";
-import movie from "../movie/loginmovie2.mp4"
+import movie from "../movie/loginmovie4.mp4"
+import { useNavigate } from "react-router-dom";
+import { setLogin } from "../service/logintest";
 const Login=()=>{
-  const getvalue=({username,password})=>{
-    console.log(username,password);
+
+  //登录
+  const nav=useNavigate();
+  const getvalue=async ({username,password})=>{
+    if(username===leaglename&&password===leaglepassword){
+      const res=await setLogin(username,password);
+      alert("登陆成功");
+      nav("/");
+    }
+    else{
+      alert("账号密码错误");
+    }
   }
+
+
+
+  //写死密码账号
+  const leaglename="蔡徐坤鸡你太美";
+  const leaglepassword="114514";
+
+
   return(
      <LoginLayout>
           <LoginFormPage
@@ -28,7 +48,7 @@ const Login=()=>{
             subTitle="方便快捷的线上书城"
             backgroundImageUrl={src1}
             style={{
-                height:"720px",
+                height:"840px",
             }}
             activityConfig={{
               style: {

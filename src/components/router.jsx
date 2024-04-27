@@ -14,6 +14,10 @@ const router=createBrowserRouter(
             element:<HomePage></HomePage>
         },
         {
+            path:"/home",
+            element:<HomePage></HomePage>
+        },
+        {
             path:"/cart",
             element:<Cart></Cart>
         },

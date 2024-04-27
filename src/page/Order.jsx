@@ -2,7 +2,6 @@ import { UserLayout } from "../components/layout";
 import { useState,useEffect } from "react";
 import { Card } from "antd";
 import Ordertable from "../components/ordertable";
-import { getOrder } from "../service/order";
 const Order=()=>{
    //  象征性请求一下数据
     // const [order,setOrder]=useState([]);
