@@ -35,7 +35,7 @@ const BookInfo=({children})=>{
    //取到数据了过后填充
    return(
     //页面整体放入一个大的card内
-     <Card style={{backgroundColor:"transparent", padding:"0px 10px",border:"none"}}> 
+     <Card style={{backgroundColor:"transparent", padding:"0px 10px",border:"none",marginTop:"50px"}}> 
         <br /><br />
        {/*布局展示图和右侧详情*/}
        <Row>
@@ -59,7 +59,7 @@ const BookInfo=({children})=>{
            <Space>
                     <BulbOutlined style={{fontSize:"24px",color:"#ffff99",marginBottom:"10px"}} />
                     <Paragraph style={{color:"white"}}>
-                        {`作者：${information.auther}`}
+                        {`作者：${information.author}`}
                         <Divider type="vertical" />
                         {`销量：114514`}
                     </Paragraph>
