@@ -7,8 +7,8 @@ const OrderItemList=({orderitems,src})=>{
             <List.Item>
                 <List.Item.Meta
                     avatar={<Avatar shape="square" size={80} src={src} />}
-                    title={item.book.title}
-                    description={`数量：${item.number}`}
+                    title={item.book.name}
+                    description={`数量：${item.num}`}
                 />
             </List.Item>
         )}

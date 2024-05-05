@@ -17,7 +17,7 @@ const Cart=()=>{
       <UserLayout active={"cart"}>
         <Card style={{backgroundColor:"transparent", padding:"0px 30px",border:"none"}}>
          <Card>
-            <CartItemTable>{cart}</CartItemTable>
+            <CartItemTable init={initCart}>{cart}</CartItemTable>
          </Card>
         </Card>
       </UserLayout>

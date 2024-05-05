@@ -61,7 +61,7 @@ const BookInfo=({children})=>{
                     <Paragraph style={{color:"white"}}>
                         {`作者：${information.author}`}
                         <Divider type="vertical" />
-                        {`销量：114514`}
+                        {`库存剩余：${information.rest}`}
                     </Paragraph>
             </Space>
             

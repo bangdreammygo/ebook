@@ -11,7 +11,18 @@ async function checkLogin(){
 
 //设置登录后的用户状态
 async function setLogin(username,password){
-    const setLogin=await fetch(`http://localhost:8080/login/setinfo?username=${username}&password=${password}`);
+    const user={
+        username:username,
+        password:password
+    };
+    const setLogin=await fetch("http://localhost:8080/login/setinfo",
+    {
+        method:"post",
+        headers:{
+          "Content-Type": "application/json"
+        },
+        body:JSON.stringify(user)
+    });
     if(setLogin) return true;
 }
 
