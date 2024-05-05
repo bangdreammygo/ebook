@@ -1,5 +1,4 @@
 // 整个订单列表的组件
-import { render } from "@testing-library/react";
 import { Table } from "antd";
 import OrderItemList from "./orderitemlist";
 import src from "../uploads/uploads1.JPG"
@@ -30,7 +29,7 @@ const Ordertable=({children})=>{
     }))}
     expandable={{
         expandedRowRender:(order)=>{
-        return<OrderItemList  orderitems={order.items} src={src}></OrderItemList>
+        return<OrderItemList  orderitems={order.products} src={src}></OrderItemList>
         }
     }}
 />

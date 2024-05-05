@@ -50,9 +50,6 @@ const Navbar=({children,active})=>{
          items={navItems}
          defaultSelectedKeys={[active]}
          selectedKeys={[active]}
-        //  style={{
-        //     backgroundColor:"transparent"
-        //  }}
          >
         </Menu>
         </Col>
