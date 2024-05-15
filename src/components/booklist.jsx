@@ -3,18 +3,9 @@ import "../css/base.module.css"
 import Bookcard from "./bookcard";
 import  style from  "../css/booklist.module.css"
 import { List, Pagination} from "antd"
-//简单搞一个数组（无后端所以先写死只能）
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 
-const Booklist=({book})=>{
-    //创建一个空数组
-    const [books,setBooks]=useState([]);
-    useEffect(
-        ()=>{
-            setBooks(book);
-        }
-        ,[book]);
+
+const Booklist=({ book, pageSize, current, total, onPageChange })=>{
     return(
         <div className={style.goods}>
 
@@ -23,18 +14,22 @@ const Booklist=({book})=>{
             grid={{
                 gutter: 16, column: 5
             }}
-            dataSource={books}
+            dataSource={
+                book.map(b => ({
+                    ...b,
+                    key: b.id
+                }))
+            }
             renderItem={(item) => (
                 <List.Item>
-                    <Bookcard key={item}>{item}</Bookcard>
+                    <Bookcard key={item.key}>{item}</Bookcard>
                 </List.Item>
             )}
         />
-
-
              <br />
-             {/* 分页器，暂时锁在第一页,一共30/10=3页 */}
-            <Pagination current={1} pageSize={10}total={30} />
+             {/* 分页器s*/}
+            <Pagination  current={current} pageSize={pageSize}
+            onChange={onPageChange} total={total} />
         </div>
     );
 };

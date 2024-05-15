@@ -2,21 +2,19 @@
 import { Button, Form, Input, Modal } from "antd";
 import React from "react";
 import useMessage from "antd/es/message/useMessage";
-import { putCart } from "../service/cart";
+import { buyCart } from "../service/cart";
 import _ from "lodash";
 const { TextArea } = Input;
 
 const OrderModal=({
     selectedItems,
     onOk,
-    onCancel })=>{
+    onCancel,
+    refresh,
+    clear})=>{
     
     //处理错误信息
     const [messageApi, contextHolder] = useMessage();
-
-
-
-
 
 
     //////////////////////////////////////////////////////防抖提交/////////////////////////////////////////////////////
@@ -25,19 +23,22 @@ const OrderModal=({
     function initDebouncedPutCart() {  
         debouncedPutCart = _.debounce(async (orderInfo) => {  
             try {  
-                const data = await putCart(orderInfo);  
+                const data = await buyCart(orderInfo);  
                 if (data.code === 200) {  
                     await messageApi.success(data.data, 0.8);  
                 } 
                 else {  
-                    await messageApi.error(data.data, 0.8);  
+                    //出现问题，那么把选中列表清空！
+                    await messageApi.error(data.data, 0.8); 
+                    clear(); 
                 }  
+                await refresh(); 
                 onOk(); // 如果需要的话，可以在这里调用 onOk  
             } catch (error) {  
                 console.error('请求失败:', error);  
                 messageApi.error('请求失败，请稍后再试！');  
             }  
-        }, 800); // 设置防抖时间，例如 500 毫秒  
+        }, 800); // 设置防抖时间
     }  
       
     // 初始化防抖函数（只在程序开始时执行一次）  
@@ -48,18 +49,15 @@ const OrderModal=({
             messageApi.error("请填写完整信息！");  
             return;  
         }  
-        const date = new Date();  
-        const datainfo = date.toLocaleString();  
         let orderInfo = {  
-            address: address,  
-            receiver: receiver,  
-            phone: tel, 
-            id: 1,  
-            date: datainfo,  
-            products: selectedItems   
+            books:selectedItems,
+            receiver:receiver,
+            address:address,
+            phone:tel,
         };  
+        console.log("订单信息：",orderInfo);
         // 调用防抖函数  
-        debouncedPutCart(orderInfo);  
+        await debouncedPutCart(orderInfo);
     };
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

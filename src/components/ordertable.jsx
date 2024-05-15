@@ -1,8 +1,10 @@
 // 整个订单列表的组件
 import { Table } from "antd";
 import OrderItemList from "./orderitemlist";
-import src from "../uploads/uploads1.JPG"
 const Ordertable=({children})=>{
+    const moment=require("moment");
+
+
     const columns = [
         { title: '收货人', dataIndex: 'receiver', key: 'receiver',
           render:(text,recorder,index)=>{  return <div>{recorder.receiver}</div> }
@@ -15,7 +17,7 @@ const Ordertable=({children})=>{
         },
         {
             title: '下单时间', dataIndex: 'createdAt', key: 'createdAt',
-            render:(text,recorder,index)=>{   return <div>{recorder.date}</div> }
+            render:(text,recorder,index)=>{ const dateString=recorder.orderdate; const formattedDate = moment(dateString).format('YYYY-MM-DD HH:mm:ss');return <div>{formattedDate}</div> }
         },
     ];
 
@@ -25,11 +27,11 @@ const Ordertable=({children})=>{
     columns={columns}
     dataSource={children.map(item => ({
         ...item,
-        key: item.id
+        key: item.orderid
     }))}
     expandable={{
         expandedRowRender:(order)=>{
-        return<OrderItemList  orderitems={order.products} src={src}></OrderItemList>
+        return<OrderItemList  orderitems={order.books}></OrderItemList>
         }
     }}
 />

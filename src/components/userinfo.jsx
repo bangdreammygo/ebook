@@ -7,6 +7,7 @@ import style from "../css/userinfo.module.css";
 import getUser from "../service/user";
 import { logout } from "../service/logintest";
 import { useNavigate } from "react-router-dom";
+import { postMotto } from "../service/user";
 const UserInfo=()=>{
 
     
@@ -17,9 +18,9 @@ const UserInfo=()=>{
     //初始化密码:
    const [Password,setPassword]=useState("无量空处5t5");
    //初始化余额:
-   const remainMoney=2525252.5;
+   const [remainMoney,setRemainMoney]=useState(2525252.5);
    //初始化用户签名：
-   const usermotto="你所热爱的，就是你的生活";
+   const [usermotto,setUserMotto]=useState("你所热爱的，就是你的生活");
    //判断目前是否应当修改签名
    const [changeMotto,setMotto]=useState(true);
    //点击修改签名，变为可以修改
@@ -27,23 +28,28 @@ const UserInfo=()=>{
     setMotto(false);
    };
    //点击保存，停止修改，输入框禁用,同时向后端发出信息修改motto
-   const cannotChangeMotto=()=>{
+   const cannotChangeMotto=async ()=>{
     setMotto(true);
     //下面还缺向后端发出修改请求
+    const data=await postMotto(usermotto);
    }
 
    //处理点击退出登录后退出登录的逻辑
-   const handleLogOut=async ()=>{
+   const handleLogOut=()=>{
       alert("当前用户退出登录");
-      await logout();
+    //清除掉当前会话中的token
+      logout();
       navigate("/login");
    }
    //向后端请求数据后重新渲染用户名和密码
    const renderUser=async ()=>{
       const data=await getUser();
-      const {username,password}=data;
+      const {username,password,motto,money}=data;
       setUser(username);
       setPassword(password);
+      setRemainMoney(money);
+      if(motto===null)setUserMotto("暂无个性签名");
+      else setUserMotto(motto);
    }
    useEffect(
     ()=>{
@@ -110,6 +116,8 @@ const UserInfo=()=>{
                 backgroundColor:"transparent",
                 color:"white"
             }}
+            value={usermotto}
+            onChange={(e)=>{setUserMotto(e.target.value)}}
             showCount
             maxLength={30}
             />
@@ -129,7 +137,7 @@ const UserInfo=()=>{
             <Divider plain style={{color:"white"}}>
                <GoldOutlined  style={{color:"gold",fontSize:"18px"}}></GoldOutlined> 我的余额
             </Divider>
-            <div style={{color:"coral"}}>￥{remainMoney}</div>
+            <div style={{color:"coral"}}>￥{remainMoney/100}</div>
             </Col>
         </Row>
         <Divider plain></Divider>

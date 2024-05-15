@@ -18,27 +18,19 @@ import movie from "../movie/loginmovie4.mp4"
 import { useNavigate } from "react-router-dom";
 import { setLogin } from "../service/logintest";
 const Login=()=>{
-
+  console.log(JSON.stringify(25,5));
   //登录
   const nav=useNavigate();
   const getvalue=async ({username,password})=>{
-    if(username===leaglename&&password===leaglepassword){
-      const res=await setLogin(username,password);
-      alert("登陆成功");
+     const res=await setLogin(username,password);
+     if(res){
+      alert("登录成功！");
       nav("/");
-    }
-    else{
-      alert("账号密码错误");
-    }
+     }
+     else{
+      alert("用户名密码错误！");
+     }
   }
-
-
-
-  //写死密码账号
-  const leaglename="蔡徐坤鸡你太美";
-  const leaglepassword="114514";
-
-
   return(
      <LoginLayout>
           <LoginFormPage
