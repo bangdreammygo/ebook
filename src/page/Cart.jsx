@@ -4,7 +4,6 @@ import { UserLayout } from "../components/layout";
 import CartItemTable from "../components/cartitemtable";
 import {getcart}  from "../service/cart"
 const Cart=()=>{
-  //  象征性请求一下数据
   const [cart,setCart]=useState([]);
   const initCart=async ()=>{
     const data=await getcart();

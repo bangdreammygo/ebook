@@ -17,19 +17,29 @@ import logo from "../img/Ebook1.png";
 import movie from "../movie/loginmovie4.mp4"
 import { useNavigate } from "react-router-dom";
 import { setLogin } from "../service/logintest";
+import { Link } from "react-router-dom";
 const Login=()=>{
-  console.log(JSON.stringify(25,5));
   //登录
   const nav=useNavigate();
   const getvalue=async ({username,password})=>{
-     const res=await setLogin(username,password);
-     if(res){
+     const {res,code}=await setLogin(username,password);
+     ///////////////////////////////////////管理员登录
+     if((code===222)){
+      alert("管理员登录！");
+      nav("/worker");
+     }
+     //////////////////////////////////////普通用户登录
+     else if(res){
       alert("登录成功！");
       nav("/");
      }
-     else{
+     else if(code===444){
       alert("用户名密码错误！");
      }
+     else{
+      alert("用户已被封禁！");
+     }
+
   }
   return(
      <LoginLayout>
@@ -94,15 +104,8 @@ const Login=()=>{
                 justifyContent:"space-between"
               }}
             >
-              <a 
-            href='./index'
-              >
-                没有账户？戳戳这里！
-              </a>
-              <a href='./index'
-              >
-                忘记密码
-              </a>
+              <Link to={"/reg"}>没有账户？戳戳这里！</Link>
+              <Link to={"/reg"}>我是新人？戳戳这里！</Link>
             </div>
           </LoginFormPage>
      </LoginLayout>

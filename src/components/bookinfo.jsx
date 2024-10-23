@@ -2,19 +2,26 @@
 import { Card, Divider, Space } from "antd";
 import { Button, Col, Image, Row } from "antd";
 import {  Typography } from 'antd';
+import { useNavigate } from "react-router-dom";
 import { addcart } from "../service/cart";
 import { ExclamationCircleOutlined,ReadOutlined,ShoppingCartOutlined ,BulbOutlined,GiftOutlined,QuestionCircleOutlined,MoneyCollectOutlined,InfoCircleOutlined} from '@ant-design/icons';
 const { Title, Paragraph } = Typography;
 
 
 const BookInfo=({children})=>{
+    const nav=useNavigate();
     //  处理添加购物车
     const handleClick=async ()=>{
         const id =children.id;
         const data=await addcart(id);
         alert(data);
     } 
-
+    //添加立即购买
+    const handleBuy=async ()=>{
+        const id =children.id;
+        await addcart(id);
+        nav("/cart");
+    }
 
    //取到数据了过后填充
    return(
@@ -79,7 +86,7 @@ const BookInfo=({children})=>{
                     {/* 后续用来写事件的两个按钮 */}
                     <Space>
                         <Button size="large" onClick={handleClick}>加入购物车<ShoppingCartOutlined></ShoppingCartOutlined></Button>
-                        <Button type="primary" size="large">立即购买<GiftOutlined style={{color:"white"}}></GiftOutlined></Button>
+                        <Button type="primary" size="large" onClick={handleBuy}>立即购买<GiftOutlined style={{color:"white"}}></GiftOutlined></Button>
                     </Space>
                 </Space>
 

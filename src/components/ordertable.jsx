@@ -19,6 +19,10 @@ const Ordertable=({children})=>{
             title: '下单时间', dataIndex: 'createdAt', key: 'createdAt',
             render:(text,recorder,index)=>{ const dateString=recorder.orderdate; const formattedDate = moment(dateString).format('YYYY-MM-DD HH:mm:ss');return <div>{formattedDate}</div> }
         },
+        {
+            title: '总价', dataIndex: 'totalPrice', key: 'totalPrice',
+            render:(text,recorder,index)=>{return<div>{recorder.total/100}</div>}
+        },
     ];
 
 

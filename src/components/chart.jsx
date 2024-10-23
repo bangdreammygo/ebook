@@ -3,15 +3,13 @@
 import * as echarts from 'echarts';
 import { useEffect } from 'react';
 
-const  Chart = () => {
+const  Chart = ({books}) => {
   /////////////////////////////////////////下面区域需要做区域数据替换////////////////////////////////
-  const dataname=[120, 200, 150];
   useEffect(
    ()=>{
     var chartDom = document.getElementById('mainchart');
     var myChart = echarts.init(chartDom, 'dark');
     var option;
-    
     option = {
       tooltip: {
         trigger: 'item'
@@ -40,18 +38,14 @@ const  Chart = () => {
           labelLine: {
             show: false
           },
-          data: [
-            { value: 1048, name: '咒术回战' },
-            { value: 735, name: '浮生物语' },
-            { value: 580, name: '哑舍零秦失其鹿' },
-          ]
+          data:books
         }
       ]
     };
     
     option && myChart.setOption(option);
     }
-    ,[]);
+    ,[books]);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   return <div id='mainchart' style={{width:"900px",height:"600px",margin:"10px auto"}}></div>

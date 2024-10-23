@@ -2,7 +2,7 @@
 async function getcart(){
     //获取token
     const token=sessionStorage.getItem("token");
-    const res=await fetch(`http://localhost:8080/cart/get?token=${token}`);
+    const res=await fetch(`http://localhost:8080/cart/get?token=${token}`,{credentials: "include",});
     const {data}=await res.json();
     return data;
 };
@@ -10,7 +10,7 @@ async function getcart(){
 async function addcart(ID){
     //获取token
     const token =sessionStorage.getItem("token");
-    const res=await fetch(`http://localhost:8080/cart/add?token=${token}&bookid=${ID}`);
+    const res=await fetch(`http://localhost:8080/cart/add?token=${token}&bookid=${ID}`,{credentials: "include",});
     const {data}=await res.json();
     return data;
 }
@@ -18,7 +18,7 @@ async function addcart(ID){
 async function deletecart(id){
         //获取token
         const token =sessionStorage.getItem("token");
-        const res=await fetch(`http://localhost:8080/cart/delete?token=${token}&bookid=${id}`);
+        const res=await fetch(`http://localhost:8080/cart/delete?token=${token}&bookid=${id}`,{credentials: "include",});
         const {data}=await res.json();
         return data;
 }
@@ -33,17 +33,17 @@ async function buyCart(selectedItems){
                 "Content-Type": "application/json"
               },
             mode: 'cors',
+            credentials: "include",
             body:JSON.stringify(selectedItems),
         }
     );
     const data=await res.json();
-    console.log(data);
     return data;
 }
 const updateNum=async (bookid,newnum)=>{
     //获取token
     const token =sessionStorage.getItem("token");
-    const res=await fetch(`http://localhost:8080/cart/update?token=${token}&bookid=${bookid}&num=${newnum}`);
+    const res=await fetch(`http://localhost:8080/cart/update?token=${token}&bookid=${bookid}&num=${newnum}`,{credentials: "include",});
     const {data}=await res.json();
     return data;
 }

@@ -1,19 +1,26 @@
 // 获取当前用户相关信息
-import { request } from "../utils/request";
 const getUser=async ()=>{
     const token=sessionStorage.getItem("token");
-    const res=await request.get(`/user/info?token=${token}`);
-    const {data}=await res.data;
+    console.log("当前token",token);
+    if(token===null){
+        return {
+            username:"五条悟",
+            money:0,
+            motto:"你所热爱的"
+        }
+    }
+    const res=await fetch(`http://localhost:8080/user/info?token=${token}`,{credentials: "include"});
+    const res2=await res.json();
+    const {data}=res2;
     console.log(res.data);
     return data;
 }
 //向后端发送更改签名的请求
 const postMotto=async (Motto)=>{
-    console.log(Motto);
     const token=sessionStorage.getItem("token");
-    const res=await request.get(`/user/motto?token=${token}&motto=${Motto}`);
-    const {data}=res.data;
-    console.log(res.data);
+    const res=await fetch(`http://localhost:8080/user/motto?token=${token}&motto=${Motto}`,{credentials: "include"});
+    const res2=await res.json();
+    const {data}=res2;
     return data;
 }
 

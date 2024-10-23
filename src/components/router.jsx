@@ -1,5 +1,5 @@
 // 这个组件是路由组件，用于导航的各个page
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter} from "react-router-dom";
 import Cart from "../page/Cart";
 import HomePage from "../page/HomePage";
 import Order  from "../page/Order";
@@ -7,6 +7,14 @@ import Rank from "../page/Rank";
 import Login from "../page/Login";
 import Detail from "../page/Detail";
 import Userpage from "../page/User";
+import Check from "../page/Check";
+import Add from "../page/Add";
+import Modify from "../page/Modify";
+import Mang from "../page/Manage";
+import Orderman from "../page/OrderMan";
+import UserRank from "../page/UserStatistic";
+import BookRank from "../page/BookStatistic";
+import Register from "../page/Register";
 const router=createBrowserRouter(
     [
         {
@@ -40,6 +48,38 @@ const router=createBrowserRouter(
         {
             path:"/user",
             element:<Userpage></Userpage>
+        },
+        {
+            path:"/worker",
+            element:<Check></Check>
+        },
+        {
+            path:"/add",
+            element:<Add></Add>
+        },
+        {
+            path:"/modi",
+            element:<Modify></Modify>
+        },
+        {
+            path:"/mang",
+            element:<Mang></Mang>
+        },
+        {
+            path:"/orderman",
+            element:<Orderman></Orderman>
+        },
+        {
+            path:"/userrank",
+            element:<UserRank></UserRank>
+        },
+        {
+            path:"/bookrank",
+            element:<BookRank></BookRank>
+        },
+        {
+            path:"/reg",
+            element:<Register></Register>
         },
         {
             path:"*",

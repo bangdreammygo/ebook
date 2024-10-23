@@ -1,23 +1,25 @@
-import { UserLayout } from "../components/layout";
+// 管理员进行订单管理的一个界面
+import WorkerLayout from "../components/workerlayout";
 import { useState,useEffect } from "react";
-import { Card } from "antd";
+import { Card,Breadcrumb } from "antd";
+import { Link } from "react-router-dom";
 import Ordertable from "../components/ordertable";
-import { getOrder,getOrderByDate,getOrderByName ,getOrderByDouble} from "../service/order";
 import Datepicker from "../components/Datepicker";
 import Search from "antd/es/input/Search";
+import { getAllOrder,getDateOrder,getKeyOrder,getDoubleOrder } from "../service/admin";
 
-const Order=()=>{
+
+const Orderman=()=>{
     // 请求一下数据
     const [order,setOrder]=useState([]);
     // 两个时间参数
     const [start,setStart]=useState("");
     const [end,setEnd]=useState("");
-
     //搜索keyword
     const [keyword,setKeyword]=useState("");
 
     const initOrder=async ()=>{
-      const data=await getOrder();
+      const data=await getAllOrder();
       setOrder(data);
     };
     useEffect(()=>{
@@ -37,7 +39,7 @@ const Order=()=>{
        setEnd(End);
        //如果没有设置关键词
        if(keyword===""){
-       const data=await getOrderByDate(Start,End);
+       const data=await getDateOrder(Start,End);
        setOrder(data);
        }
        //设置了关键词
@@ -52,7 +54,7 @@ const Order=()=>{
         //如果没有设置时间
         if(start===""&&end==="")
         {
-        const data=await getOrderByName(keyword);
+        const data=await getKeyOrder(keyword);
         setOrder(data);
         }
         //如果同时还设置了时间的筛选范围就要重新
@@ -63,16 +65,26 @@ const Order=()=>{
 
     //时间关键词一起搜索
     const DoubleFliter=async (S,E,K)=>{
-      console.log("start end key:",S,E,K);
-      const data=await getOrderByDouble(S,E,K);
+      const data=await getDoubleOrder(S,E,K);
       setOrder(data);
     }
 
      
   return(
-      <UserLayout active={"order"}>
+      <WorkerLayout active={"orderman"}>
         <Card style={{backgroundColor:"transparent", padding:"0px 30px",border:"none"}}>
-         <Card>
+         <Card
+            title={
+            <Breadcrumb
+            items={
+            [
+              {title:<Link to={"/worker"}>管理员中心</Link>},
+              {title:"订单管理"}
+            ]
+            }
+            ></Breadcrumb>
+           }
+         >
          <Datepicker dateFliter={dateFliter}></Datepicker>
         <Search
         placeholder="输入要查询的书名"  enterButton size="large" style={{padding:"0px 50px",marginTop:"20px",marginBottom:"20px"}}
@@ -85,8 +97,8 @@ const Order=()=>{
           <Ordertable>{order}</Ordertable>
          </Card>
         </Card>
-      </UserLayout>
+      </WorkerLayout>
     );
 };
 
-export default Order;
+export default Orderman;

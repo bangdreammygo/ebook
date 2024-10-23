@@ -2,8 +2,6 @@ import { Card, Divider, Space ,Button  } from "antd";
 import {  Col, Row ,Input } from "antd";
 import {GoldOutlined,UserOutlined} from "@ant-design/icons"
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import style from "../css/userinfo.module.css";
 import getUser from "../service/user";
 import { logout } from "../service/logintest";
 import { useNavigate } from "react-router-dom";
@@ -15,8 +13,6 @@ const UserInfo=()=>{
     const navigate=useNavigate();
     // 初始化用户名：
     const [Username,setUser]=useState("五条悟");
-    //初始化密码:
-   const [Password,setPassword]=useState("无量空处5t5");
    //初始化余额:
    const [remainMoney,setRemainMoney]=useState(2525252.5);
    //初始化用户签名：
@@ -31,22 +27,21 @@ const UserInfo=()=>{
    const cannotChangeMotto=async ()=>{
     setMotto(true);
     //下面还缺向后端发出修改请求
-    const data=await postMotto(usermotto);
+     await postMotto(usermotto);
    }
 
    //处理点击退出登录后退出登录的逻辑
-   const handleLogOut=()=>{
-      alert("当前用户退出登录");
-    //清除掉当前会话中的token
-      logout();
+   const handleLogOut=async ()=>{
+      const duration=await logout();
+      alert(`当前用户退出登录,本次登录时长一共为${duration}`);
+      //清除掉当前会话中的token
       navigate("/login");
    }
    //向后端请求数据后重新渲染用户名和密码
    const renderUser=async ()=>{
       const data=await getUser();
-      const {username,password,motto,money}=data;
+      const {username,motto,money}=data;
       setUser(username);
-      setPassword(password);
       setRemainMoney(money);
       if(motto===null)setUserMotto("暂无个性签名");
       else setUserMotto(motto);
@@ -86,11 +81,6 @@ const UserInfo=()=>{
                 <Col span={12}>用户名：</Col>
                 <Col span={12}>{Username}</Col>
                 </Row>
-                <Row style={{padding:"0px 100px"}}>
-                <Col span={12}>当前密码：</Col>
-                <Col span={12}>{Password}</Col>
-                </Row>
-                <Link  className={style.changepassword} to={"/"}>修改密码</Link>
                 </Space>
             </Card>
             {/* 请求结束 */}

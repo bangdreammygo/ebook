@@ -4,12 +4,17 @@ import { useEffect, useState } from "react";
 import {DeleteOutlined} from "@ant-design/icons";
 import OrderModal from "./orderModal";
 import { deletecart,getcart,updateNum } from "../service/cart";
+import useMessage from "antd/es/message/useMessage";
 
 const CartItemTable=({children,init})=>{
     ////////////////////////////////////购物车中被选中的项////////////////////////////////////////
     const [selectItems,setSelect]=useState([]);
     ////////////////////////显示的总价//////////////////////////////////////
     const [totalPrice,setPrice]=useState(0);
+    //处理错误信息
+    const [messageApi, contextHolder] = useMessage();
+    const [socket, setSocket] = useState(null);
+
     //提交订单后重新会渲染
     const [data,setData]=useState(children);
     useEffect(
@@ -72,7 +77,10 @@ const CartItemTable=({children,init})=>{
     }
     ////////////////////////////////////////////////////////////////////////////////////////
     
-
+    // 建立 WebSocket 连接
+    const token = sessionStorage.getItem("token"); // 替换为实际的用户ID
+    const socketUrl = `ws://localhost:8080/transfer/${token}`;
+    let newSocket ;
     
     /////////////////////////////////////返回类型的样式：
     /////////{
@@ -144,11 +152,45 @@ const CartItemTable=({children,init})=>{
      ///////////////////////////////////处理订单提交的逻辑////////////////////////////
 
      const handleClick=async ()=>{
-        if(selectItems.length!==0)setShowModal(true);
+        //建立websocket连接
+        if(selectItems.length!==0){
+            newSocket=new WebSocket(socketUrl);
+            newSocket.onmessage =async (event) => {
+                const message = event.data;
+                setTimeout(async () => {
+                    if(message.length===8)await messageApi.success(message, 0.8);
+                    else await messageApi.error(message,0.8); 
+                    // 关闭 WebSocket 连接
+                    if (newSocket && newSocket.readyState === WebSocket.OPEN) {  
+                        newSocket.close();  
+                    }  
+                }, 400); 
+            };
+            newSocket.onerror = async(error) => {
+                console.error('WebSocket error:', error);
+                await messageApi.error('WebSocket连接失败，请稍后再试！');
+            };
+            setSocket(newSocket);
+            setShowModal(true);
+        }
         else alert("您还没有选中任何商品");
      }
+     
+     useEffect(() => {
+        return () => {
+            if (socket) {
+                socket.close();
+            }
+        };
+    }, [socket]); 
+     
+
      const closeModal=()=>{
-        setShowModal(false);
+        setShowModal(false);        
+        setTimeout(()=>{        
+            if (socket && socket.readyState === socket.OPEN) {  
+            socket.close();  
+        } },2000); 
      }
      const initCartAgain=()=>{
         setShowModal(false);
@@ -177,7 +219,7 @@ const CartItemTable=({children,init})=>{
         <>
         {/* 提交订单后会生成的对话框 */}
         {showModal&&<OrderModal onCancel={closeModal} selectedItems={selectItems} onOk={initCartAgain} destoryOnclose refresh={refresh} clear={clearSelect}></OrderModal>}
-        
+        {contextHolder}
         {/* 渲染购物车 */}
         <Table
         columns={columns}
