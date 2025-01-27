@@ -2,7 +2,7 @@
 import { Button, Form ,Input,Upload,Space} from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useState } from "react";
-import { addBook } from "../service/book";
+import { addBook } from "../service/admin";
 import { useNavigate } from "react-router-dom";
 
 
@@ -15,6 +15,8 @@ const Addform=()=>{
 //    上传图片的回调
     const OnChange=(value)=>{
         //设置图片信息
+        console.log("val:",value);
+        
         setImg(value.fileList);
     }
     const nav=useNavigate();

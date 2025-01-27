@@ -3,7 +3,7 @@ import { Button, Col, Image, Row, Table, InputNumber } from "antd";
 import { useEffect, useState } from "react";
 import {DeleteOutlined} from "@ant-design/icons";
 import OrderModal from "./orderModal";
-import { deletecart,getcart,updateNum } from "../service/cart";
+import { deletecart,getcart,updateNum,calSingle } from "../service/cart";
 import useMessage from "antd/es/message/useMessage";
 
 const CartItemTable=({children,init})=>{
@@ -52,14 +52,19 @@ const CartItemTable=({children,init})=>{
         });
         setSelect(selectforend);
     }
+
     //更新价格显示
     useEffect(
         ()=>{//重新计算总价
-        let newprice=0;
-        for(let i=0;i<selectItems.length;i++){
-            newprice+=selectItems[i].book.price*selectItems[i].num;
+        async function cal() {
+            let newprice =0;
+            for(let i=0;i<selectItems.length;i++){
+                const data=await calSingle(selectItems[i].book.price*100,selectItems[i].num);
+                newprice+=data;
+            }
+            setPrice(newprice);
         }
-        setPrice(newprice);
+        cal();
         }
         ,[selectItems]);
     ///////////////////////////////////////////////////////////////////////////////

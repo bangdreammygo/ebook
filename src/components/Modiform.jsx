@@ -2,7 +2,7 @@
 import { Button, Form ,Input,Upload,Space} from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
-import { addBook } from "../service/book";
+import { addBook } from "../service/admin";
 import { useNavigate } from "react-router-dom";
 import { getBookById } from "../service/book";
 const { TextArea } = Input;

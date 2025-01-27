@@ -92,3 +92,20 @@ export const getSaleDate=async(start ,end)=>{
     const {data}=await res.json();
     return data;
 }
+
+// 新增书籍(管理员使用)
+export const addBook=async (book,num)=>{
+    const res=await fetch (`http://localhost:8080/book/add?num=${num}`,
+    {
+        method:"PUT",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body:JSON.stringify(book),
+        credentials:"include",
+        mode:"cors"
+    }
+    )
+    const data=await res.json();
+    return data.data;
+}

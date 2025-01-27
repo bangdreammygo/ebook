@@ -15,6 +15,8 @@ import Orderman from "../page/OrderMan";
 import UserRank from "../page/UserStatistic";
 import BookRank from "../page/BookStatistic";
 import Register from "../page/Register";
+import Micro from "../page/Micro";
+import NeoPage from "../page/Neo4j";
 const router=createBrowserRouter(
     [
         {
@@ -80,6 +82,14 @@ const router=createBrowserRouter(
         {
             path:"/reg",
             element:<Register></Register>
+        },
+        {
+            path:"/micro",
+            element:<Micro></Micro>
+        },
+        {
+            path:"/neo",
+            element:<NeoPage></NeoPage>
         },
         {
             path:"*",

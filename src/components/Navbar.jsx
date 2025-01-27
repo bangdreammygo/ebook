@@ -6,23 +6,45 @@ const Navbar=({children,active})=>{
    const navItems=[
     {
         key:"homepage",
-        label:<Link to={"/"}>首页</Link>
+        label:<Link to={"/"}>
+          首页
+          </Link>
     },
     {
         key:"cart",
-        label:<Link to={"/cart"}>购物车</Link>
+        label:<Link to={"/cart"}>
+          购物车
+          </Link>
     },
     {
         key:"order",
-        label:<Link to={"/order"}>订单</Link>
+        label:<Link to={"/order"}>
+          订单
+          </Link>
     },
     {
         key:"rank",
-        label:<Link to={"/rank"}>排行</Link>
+        label:<Link to={"/rank"}>
+          统计
+          </Link>
     },
     {
       key:"user",
-      label:<Link to={"/user"}>我的</Link>
+      label:<Link to={"/user"}>
+        我的
+        </Link>
+    },
+    {
+      key:"neo",
+      label:<Link to={"/neo"}>
+        标签
+      </Link>
+    },
+    {
+      key:"micro",
+      label:<Link to={"/micro"}>
+        微服务
+        </Link>
     }
    ];
     return(
@@ -35,7 +57,9 @@ const Navbar=({children,active})=>{
            color:"gray"
          }}
         >
-         <Link to={"/"}  className={styles.logo}>E-Book</Link>
+         <Link to={"/"}  className={styles.logo}>
+         E-BOOK
+         </Link>
         </Col>
         {/* nav */}
         <Col

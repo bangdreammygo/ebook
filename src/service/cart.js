@@ -37,6 +37,8 @@ async function buyCart(selectedItems){
             body:JSON.stringify(selectedItems),
         }
     );
+    console.log(JSON.stringify(selectedItems));
+    
     const data=await res.json();
     return data;
 }
@@ -48,4 +50,16 @@ const updateNum=async (bookid,newnum)=>{
     return data;
 }
 
-export {getcart,buyCart,addcart,deletecart,updateNum};
+const calSingle=async(price,sum)=>{
+    const data = [price, sum]; 
+    const res=await fetch("http://localhost:8081/function/calPrice",
+        {
+            method:"POST",
+            body: data
+        }
+    );    
+    const num=await res.json();        
+    return num[0]/100;
+}
+
+export {getcart,buyCart,addcart,deletecart,updateNum,calSingle};
